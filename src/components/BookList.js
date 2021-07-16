@@ -50,7 +50,7 @@ export default class BookList extends Component{
                     </tbody>
                 </table>
 
-                {/* <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -67,7 +67,7 @@ export default class BookList extends Component{
                         </div>
                     </div>
                
-                </div> */}
+                </div>
                 {/* <Modal show={this.state.show} >
                     <Modal.header>
                         <Modal.title>Edit Your Book.</Modal.title>

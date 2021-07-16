@@ -41,9 +41,10 @@ class App extends Component {
   async onBookCreated(book){
 
     try{
+       console.log(book);
       const docRef = this.db.collection('books').doc();
       await docRef.set({
-        name: book.name,
+        title: book.title,
         author: book.author,
         isbn: book.isbn
       });
@@ -63,7 +64,7 @@ class App extends Component {
         const docRef = this.db.collection('books').doc(bookID);
         await docRef.delete();
         const updatedBookArr = this.state.books.filter(book => book.id !== bookID);
-        this.saveBooksState(updatedBookArr);
+        this.setState({books: updatedBookArr});
       } catch(err){
         console.log(err);
       }
