@@ -1,17 +1,20 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import firebase from './firebase/firebase';
 import './App.css';
 import {Component} from 'react';
 import TypeBook from "./components/TypeBook";
 import BookList from "./components/BookList";
+import Book from "./models/Book";
 class App extends Component {
 
   constructor(props){
     super(props)
 
-    let booksString = localStorage.getItem('books')
-    booksString = booksString ? booksString : '[]';
-    const books = JSON.parse(booksString);
+    this.db = firebase.firestore();
+    // let booksString = localStorage.getItem('books')
+    // booksString = booksString ? booksString : '[]';
+    // const books = JSON.parse(booksString);
     
     this.state = {
       books: [],
@@ -19,22 +22,51 @@ class App extends Component {
     }
   }
 
-  saveBooksState(books){
-    this.setState({
-      books: books
-    })
-    localStorage.setItem('books', JSON.stringify(books))
-  }
-
-  onBookCreated(book){
-    this.state.books.push(book);
-    this.saveBooksState(this.state.books)
+ componentDidMount(){
+    this.fetchBooks();
+    
   }
 
 
-  onBookRemoved(bookID){
-      const updatedBookArr = this.state.books.filter(book => book.id !== bookID);
-      this.saveBooksState(updatedBookArr);
+  async fetchBooks(){
+    try{
+      const snapShot = await this.db.collection('books').get();
+      const books = snapShot.docs.map(doc => Book.fromDocument(doc));
+      this.setState({books: books});
+    } catch(err){
+      console.log(err);
+    }
+  }
+
+  async onBookCreated(book){
+
+    try{
+      const docRef = this.db.collection('books').doc();
+      await docRef.set({
+        name: book.name,
+        author: book.author,
+        isbn: book.isbn
+      });
+      book.id = docRef.id;
+      this.state.books.push(book);
+      this.setState({books: this.state.books});
+    }catch (err) {
+      console.log(err);
+    }
+   
+  }
+
+
+  async onBookRemoved(bookID){
+
+      try{
+        const docRef = this.db.collection('books').doc(bookID);
+        await docRef.delete();
+        const updatedBookArr = this.state.books.filter(book => book.id !== bookID);
+        this.saveBooksState(updatedBookArr);
+      } catch(err){
+        console.log(err);
+      }
   }
 
   render(){

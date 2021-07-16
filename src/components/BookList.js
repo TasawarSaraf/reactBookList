@@ -1,6 +1,6 @@
 import {Component} from 'react';
 //import Book from '../models/Book';
-import {Button, Modal} from 'react-bootstrap';
+// import {Button} from 'react-bootstrap';
 
 
 export default class BookList extends Component{
@@ -34,7 +34,7 @@ export default class BookList extends Component{
                                <td>{book.author}</td>
                                <td>{book.isbn}</td>
                                <td>
-                               <Button onClick={()=> this.onHandleModal()} variant="warning"> <i className="bi bi-pencil"></i></Button>{' '}
+                                <button onClick={()=> this.onHandleModal()} type="button" className="btn btn-warning"><i className="bi bi-pencil"></i></button>
                                </td>
                                <td>
                                    <button onClick={() => this.props.bookRemoved(book.id)} className="btn btn-danger">
@@ -68,7 +68,7 @@ export default class BookList extends Component{
                     </div>
                
                 </div> */}
-                <Modal show={this.state.show} >
+                {/* <Modal show={this.state.show} >
                     <Modal.header>
                         <Modal.title>Edit Your Book.</Modal.title>
 
@@ -95,7 +95,7 @@ export default class BookList extends Component{
                             Save
                         </Button>
                     </Modal.footer>
-                </Modal>
+                </Modal> */}
 
 
 

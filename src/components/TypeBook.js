@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import Book from "../models/Book";
-
+import "bootstrap/dist/css/bootstrap.css";
 
 
 
@@ -53,7 +53,7 @@ export default class TypeBook extends Component{
                     <span className="input-group-text" id="inputGroup-sizing-default">ISBN #</span>
                     <input onChange={(e)=> this.onInputIsbnChange(e)} value={this.state.isbn} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                 </div>
-                <div className="d-grid gap-2 col-6 mx-auto">
+               <div className="d-grid gap-2 col-6 mx-auto text-center">
                     <button onClick={() => this.onAddBook()} className="btn btn-secondary" type="button">Submit</button>    
                 </div>
 
